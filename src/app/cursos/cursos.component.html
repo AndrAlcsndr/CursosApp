@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="jumbotron py-3">
+    <h1 class="display-2 text-center">Plataforma de cursos</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-cursos-form></app-cursos-form>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group mb-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><i class='bx bx-search' style="font-size: 24px;"></i></span>
+        </div>
+        <input type="text" class="form-control col-md-12" placeholder="Buscar" [(ngModel)]="filtroLista"
+          aria-label="Username" aria-describedbt="basic-addon1">
+      </div>
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>Descrição</th>
+            <th>Data de inicio</th>
+            <th>Data de encerramento</th>
+            <th>Quantidade</th>
+            <th>Categorias</th>
+            <th>Opções</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="cursos && cursos.length">
+          <!-- <tr *ngFor="let pd of service.list"> -->
+            <tr *ngFor="let pd of cursosFiltrados">
+            <td (click)="populateForm(pd); autoDate(pd)">{{pd.descricao}}</td>
+            <td (click)="populateForm(pd); autoDate(pd)">{{pd._Data_ini | date: ('dd/MM/yyyy')}}</td>
+            <td (click)="populateForm(pd); autoDate(pd)">{{pd._Data_fin | date: ('dd/MM/YYYY')}}</td>
+            <td (click)="populateForm(pd); autoDate(pd)">{{pd.quantidade}}</td>
+            <td (click)="populateForm(pd); autoDate(pd)">{{pd.categorias}}</td>
+            <td>
+              <!-- <i class="bx bxs-trash" (click)="onDelete(pd.cursoId)"></i> -->
+              <button type="button" (click)="onDelete(pd.cursoId)" class="btn btn-outline-warning">Excluir</button>
+              <button type="button" (click)="autoDate(pd); populateForm(pd); " class="btn btn-outline-danger">Alterar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

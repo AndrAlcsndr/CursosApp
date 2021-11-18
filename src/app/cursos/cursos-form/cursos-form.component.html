@@ -1,0 +1,75 @@
+<div class="container-fluid form-control">
+  <form class="needs-validation" novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">
+    <input type="hidden" name="CursoId" [value]="service.formData.cursoId" />
+
+    <div class="form-control-lg">
+      <div class="input-group has-validation">
+        <label for="validationServer01" class="form-label col-md-6">Descrição do curso</label>
+        <div class="col-md-8">
+          <input class="form-control needs-validation form-control-lg" id="validationServer01"
+          placeholder="Descrição do curso" name="Descricao" #Descricao="ngModel"
+          [(ngModel)]="service.formData.descricao" [class.invalid]="Descricao.invalid && Descricao.touched" required
+          minlength="5" maxlength="50">
+        </div>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+    </div>
+
+    <div class="form-control-lg ">
+      <div class="input-group has-validation">
+      <label for="validationServer02" class="form-control" style="font-size: 20px">Data de inicio</label>
+      <input class="form-control needs-validation form-control-lg" placeholder="Data: dd/MM/yyyy" name="Data_Inicio"
+        id="validationServer02" #_Data_ini="ngModel" [(ngModel)]="service.formData._Data_ini"
+        [class.invalid]="_Data_ini.invalid && _Data_ini.touched" type="date" required minlength="10" maxlength="10">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+  </div>
+
+  <div class="form-control-lg ">
+    <div class="input-group has-validation">
+      <label for="validationServer03" class="form-control" style="font-size: 20px">Data de encerramento</label>
+      <input class="form-control needs-validation form-control-lg" placeholder="Ex.: 12/12/2020" name="Data_final"
+        id="validationServer03" #_Data_fin="ngModel" [(ngModel)]="service.formData._Data_fin"
+        [class.invalid]="_Data_fin.invalid && _Data_fin.touched" type="date" required minlength="10" maxlength="10">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+    </div>
+  </div>
+
+  <div class="form-control-lg">
+    <label for="validationServer04">Quantidade de alunos</label>
+    <input class="form-control is-valid form-control-lg" placeholder="Quantidade" name="Quantidade"
+      id="Quantidade" #Quantidade="ngModel" [(ngModel)]="service.formData.quantidade"
+      [class.invalid]="Quantidade.invalid && Quantidade.touched">
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+
+  <div class="form-control-lg">
+    <label>Categorias</label>
+    <!--  <input class="form-control form-control-lg" placeholder="Categorias" name="Categorias" id="Categorias"
+          #Categorias="ngModel" [(ngModel)]="service.formData.Categorias * service.formData.Categorias"
+          [class.invalid]="Categorias.invalid && Categorias.touched"> -->
+    <select class="form-select" aria-label="Default select example" name="Categorias" id="Categorias"
+      #Categorias="ngModel" [(ngModel)]="service.formData.categorias"
+      [class.invalid]="Categorias.invalid && Categorias.touched">
+      <option value="1">Multiplataforma</option>
+      <option value="2">Banco de dados</option>
+      <option value="3">Metodologia</option>
+      <option value="4">Comportamento</option>
+      <option value="5">Comunicação</option>
+    </select>
+  </div>
+
+  <div class="form-control-lg">
+    <button class="btn btn-success btn-lg btn-block" onclick = "validateData()" (click)="check()" type="submit" id="submit" >ADICIONAR</button>
+    <!-- [disabled]="form.invalid" colocar dentro do button de novo -->
+  </div>
+  </form>
+</div>
