@@ -7,9 +7,9 @@
         <label for="validationServer01" class="form-label col-md-6">Descrição do curso</label>
         <div class="col-md-8">
           <input class="form-control needs-validation form-control-lg" id="validationServer01"
-          placeholder="Descrição do curso" name="Descricao" #Descricao="ngModel"
+          do curso name="Descricao" #Descricao="ngModel" value="Descrição do curso"
           [(ngModel)]="service.formData.descricao" [class.invalid]="Descricao.invalid && Descricao.touched" required
-          minlength="5" maxlength="50">
+          minlength="5" maxlength="300">
         </div>
         <div class="valid-feedback">
           Looks good!
@@ -68,7 +68,7 @@
   </div>
 
   <div class="form-control-lg">
-    <button class="btn btn-success btn-lg btn-block" onclick = "validateData()" (click)="check()" type="submit" id="submit" >ADICIONAR</button>
+    <button class="btn btn-success btn-lg btn-block" onclick = "validateData()" (click)="check()" type="submit" id="submit" [disabled]="form.invalid">ADICIONAR</button>
     <!-- [disabled]="form.invalid" colocar dentro do button de novo -->
   </div>
   </form>

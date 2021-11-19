@@ -34,11 +34,38 @@ export class CursosComponent implements OnInit {
   }
 
   autoDate(fs: Cursos) {
+    //Metodo que garante que os campos de datas sejam preenchidos corretamente
     let data_ini = this.service.formData._Data_ini.substring(0, 10).split('/').reverse().join('-');
     let data_fin = this.service.formData._Data_fin.substring(0, 10).split('/').reverse().join('-');
     (<HTMLInputElement>document.querySelector('#validationServer02')).value = data_ini;
     (<HTMLInputElement>document.querySelector('#validationServer03')).value = data_fin;
 
+
+    /* this.service.list.forEach((fs) =>{
+      if (fs._Data_fin.substring(0,10)<data_atual.toString()) {
+        alert ("Este curso ja foi realizado e, por isso, não pode ser excluído.");
+        (<HTMLInputElement>document.querySelector('#Excluir')).disabled= true;
+
+      }
+
+    }) */
+
+
+  }
+
+  checkCursoPassado (){
+    let data_fin = this.service.formData._Data_fin.substring(0, 10).split('/').reverse().join('-');
+    var data_atual = new Date();
+    data_atual = new Date(data_atual.getFullYear() + '-' + (data_atual.getMonth() + 1) + '-' + (data_atual.getDate() + 1));
+    if (data_fin<data_atual.toString()){
+      (<HTMLInputElement>document.querySelector('#Excluir')).disabled= true;
+      alert ("Este curso ja foi realizado e, por isso, não pode ser excluído.");
+
+    }
+    else {
+      this.onDeleteCurso(this.service.formData.cursoId);
+
+    }
 
   }
 
@@ -53,12 +80,12 @@ export class CursosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getClientes();
+    this.getCurso();
     this.service.refreshList();
 
 
   }
-  getClientes() {
+  getCurso() {
     this.http.get(this.baseURL).subscribe(response => {
       this.cursos = response; this.cursosFiltrados = this.cursos
     },
@@ -67,15 +94,15 @@ export class CursosComponent implements OnInit {
   }
 
   populateForm(selectedRecord: Cursos) {
-
     this.service.formData = Object.assign({}, selectedRecord);
+
 
   }
 
-  onDelete(id: number) {
+  onDeleteCurso(id: number) {
     if (confirm('Tem certeza que deseja excluir este curso ?')) {
       this.service.deleteCurso(id).subscribe(res => {
-        this.service.refreshList();
+        this.service.refreshList ();
         this.toastr.error("Curso excluído com sucesso.", "Cursos registrados");
         this.service.formData.cursoId = 0;
       }, err => { console.log(err) }

@@ -6,33 +6,41 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CursosService {
-  _emitirCursoCriado = new EventEmitter <Cursos> ();
+  _emitirCursoCriado = new EventEmitter<Cursos>();
 
   constructor(private http: HttpClient) { }
   readonly baseUrl = 'https://localhost:44302/api/Cursoes';
-  formData: Cursos = new Cursos ();
+  formData: Cursos = new Cursos();
   list: Cursos[];
 
-  postCurso () {
-    this._emitirCursoCriado.emit (this.formData);
+  postCurso() {
+    this._emitirCursoCriado.emit(this.formData);
     return this.http.post(this.baseUrl, this.formData);
 
   }
 
-  putCurso () {
+  putCurso() {
     return this.http.put(`${this.baseUrl}/${this.formData.cursoId}`, this.formData);
 
   }
 
-  deleteCurso (id: number) {
-    return this.http.delete (`${this.baseUrl}/${id}`);
+  deleteCurso(id: number) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
 
   }
+  refreshList() {
+    this.http.get(this.baseUrl).subscribe((res: any) => {
 
-  refreshList () {
+      this.list = res as Cursos[];
+
+    }
+      /* .then(res => this.list = res as Cursos[]); */
+    )
+  }
+  /* refreshList () {
     this.http.get (this.baseUrl)
     .toPromise ()
     .then(res => this.list = res as Cursos[]);
-  }
+  } */
 
 }

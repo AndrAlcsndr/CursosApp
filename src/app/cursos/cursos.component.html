@@ -37,7 +37,7 @@
             <td (click)="populateForm(pd); autoDate(pd)">{{pd.categorias}}</td>
             <td>
               <!-- <i class="bx bxs-trash" (click)="onDelete(pd.cursoId)"></i> -->
-              <button type="button" (click)="onDelete(pd.cursoId)" class="btn btn-outline-warning">Excluir</button>
+              <button type="button" id="Excluir" class="btn btn-outline-warning">Excluir</button>
               <button type="button" (click)="autoDate(pd); populateForm(pd); " class="btn btn-outline-danger">Alterar</button>
             </td>
           </tr>
